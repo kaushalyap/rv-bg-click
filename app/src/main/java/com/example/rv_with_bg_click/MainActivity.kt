@@ -1,15 +1,17 @@
 package com.example.rv_with_bg_click
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MainActivity : AppCompatActivity(), RvAdpater.OnItemClick {
 
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var adView: View
     private lateinit var rvPosts: RecyclerView
 
@@ -21,14 +23,24 @@ class MainActivity : AppCompatActivity(), RvAdpater.OnItemClick {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupRecyclerView()
+        setupSwipeRefreshLayout()
+    }
+
+    private fun setupRecyclerView() {
         rvPosts = findViewById(R.id.rv_posts)
         rvPosts.layoutManager = LinearLayoutManager(this)
 
         val rvAdpater = RvAdpater()
         rvAdpater.setListener(this)
         rvPosts.adapter = rvAdpater
+    }
 
-
+    private fun setupSwipeRefreshLayout() {
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_posts)
+        swipeRefreshLayout.setOnRefreshListener {
+            Log.d(TAG, "Refreshing...")
+        }
 
     }
 
@@ -40,9 +52,9 @@ class MainActivity : AppCompatActivity(), RvAdpater.OnItemClick {
 
     override fun onBackPressed() {
         // to go back to the normal recycler view when back button is pressed
-        val parent = rvPosts.parent as ViewGroup
+        val parent = swipeRefreshLayout.parent as ViewGroup
         parent.removeAllViews()
         parent.addView(adView, 0)
-        parent.addView(rvPosts, 1)
+        parent.addView(swipeRefreshLayout, 1)
     }
 }

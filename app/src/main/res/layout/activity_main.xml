@@ -3,20 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:focusable="true">
+    android:focusable="true"
+    tools:context=".MainActivity">
+
 
     <View
         android:id="@+id/ad"
-        android:background="@color/colorAccent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true"
-        />
+        android:background="@color/colorAccent" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_posts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_posts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </RelativeLayout>
