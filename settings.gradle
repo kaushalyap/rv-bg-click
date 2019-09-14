@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name='rv_with_bg_click'
