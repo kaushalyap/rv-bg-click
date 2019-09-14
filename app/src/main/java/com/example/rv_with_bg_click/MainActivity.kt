@@ -50,11 +50,13 @@ class MainActivity : AppCompatActivity(), RvAdpater.OnItemClick {
         adView.bringToFront()
     }
 
+    // to go back to the normal recycler view(which is inside swipe refresh layout)
+    // when back button is pressed
     override fun onBackPressed() {
-        // to go back to the normal recycler view when back button is pressed
         val parent = swipeRefreshLayout.parent as ViewGroup
         parent.removeAllViews()
         parent.addView(adView, 0)
+        // at last add swipe refresh layout which is the container of the recyclerview
         parent.addView(swipeRefreshLayout, 1)
     }
 }
